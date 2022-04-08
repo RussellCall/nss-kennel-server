@@ -26,9 +26,16 @@ def get_single_location(id):
         # instead of the dot notation that JavaScript used.
         if location["id"] == id:
             requested_location = location
-
     return requested_location
 
+def update_location(id, new_location):
+    # Iterate the ANIMALS list, but use enumerate() so that
+    # you can access the index value of each item.
+    for index, location in enumerate(LOCATIONS):
+        if location["id"] == id:
+            # Found the animal. Update the value.
+            LOCATIONS[index] = new_location
+            break
 
 def create_location(location):
     # Get the id value of the last animal in the list
