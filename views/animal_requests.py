@@ -78,9 +78,6 @@ def delete_animal(id):
         if animal["id"] == id:
             # Found the animal. Store the current index.
             animal_index = index
-            
-
-
     # If the animal was found, use pop(int) to remove it from list
     if animal_index >= 0:
-        ANIMALS.pop(animal_index)
+        ANIMALS.pop(animal_index)  
