@@ -36,11 +36,12 @@ class HandleRequests(BaseHTTPRequestHandler):
         """
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-        self.send_header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept')
+        self.send_header('Access-Control-Allow-Methods',
+                         'GET, POST, PUT, DELETE')
+        self.send_header('Access-Control-Allow-Headers',
+                         'X-Requested-With, Content-Type, Accept')
         self.end_headers()
-        
-        
+
     def do_GET(self):
         """Handles GET requests to the server
         """
@@ -55,19 +56,19 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = f"{get_single_animal(id)}"
             else:
                 response = f"{get_all_animals()}"
-        
+
         if resource == "locations":
             if id is not None:
                 response = f"{get_single_location(id)}"
             else:
                 response = f"{get_all_locations()}"
-        
+
         if resource == "employees":
             if id is not None:
                 response = f"{get_single_employee(id)}"
             else:
                 response = f"{get_all_employees()}"
-        
+
         if resource == "customers":
             if id is not None:
                 response = f"{get_single_customer(id)}"
@@ -76,6 +77,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.wfile.write(response.encode())
     # Here's a method on the class that overrides the parent's method.
     # It handles any POST request.
+
     def do_POST(self):
         self._set_headers(201)
         content_len = int(self.headers.get('content-length', 0))
@@ -96,22 +98,22 @@ class HandleRequests(BaseHTTPRequestHandler):
             new_animal = create_animal(post_body)
         # Encode the new animal and send in response
         self.wfile.write(f"{new_animal}".encode())
-        #initialize new location
-        
+        # initialize new location
+
         new_location = None
         # Add new location to list
         if resource == "locations":
             new_location = create_location(post_body)
         self.wfile.write(f"{new_location}".encode())
-        
-        #initialize new employee
+
+        # initialize new employee
         new_employee = None
         # Add new location to list
         if resource == "employees":
             new_employee = create_employee(post_body)
         self.wfile.write(f"{new_employee}".encode())
-        
-        #initialize new employee
+
+        # initialize new employee
         new_customer = None
         # Add new location to list
         if resource == "customers":
@@ -131,7 +133,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         # Delete a single animal from the list
         if resource == "animals":
-            update_animal(id, post_body)            
+            update_animal(id, post_body)
         if resource == "locations":
             update_location(id, post_body)
         if resource == "employees":
@@ -141,7 +143,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         # Encode the new animal and send in response
         self.wfile.write("".encode())
-        
+
     def parse_url(self, path):
         # Just like splitting a string in JavaScript. If the
         # path is "/animals/1", the resulting list will
@@ -162,7 +164,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             pass  # Request had trailing slash: /animals/
 
         return (resource, id)  # This is a tuple
-    
+
     def do_DELETE(self):
         # Set a 204 response code
         self._set_headers(204)

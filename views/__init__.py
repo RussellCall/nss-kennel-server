@@ -1,5 +1,21 @@
 from socket import fromfd
-from .animal_requests import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal
-from .location_requests import create_location, get_all_locations, get_single_location, update_location
-from .employee_requests import get_all_employees, get_single_employee, create_employee, update_employee
-from .customer_requests import get_all_customers, get_single_customer, create_customer, update_customer
+from .animal_requests import get_all_animals
+from .animal_requests import get_single_animal
+from .animal_requests import create_animal
+from .animal_requests import delete_animal
+from .animal_requests import update_animal
+
+from .location_requests import create_location
+from .location_requests import get_all_locations
+from .location_requests import get_single_location
+from .location_requests import update_location
+
+from .employee_requests import get_all_employees
+from .employee_requests import get_single_employee
+from .employee_requests import create_employee
+from .employee_requests import update_employee
+
+from .customer_requests import get_all_customers
+from .customer_requests import get_single_customer
+from .customer_requests import create_customer
+from .customer_requests import update_customer
