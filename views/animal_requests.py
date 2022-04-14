@@ -140,3 +140,60 @@ def delete_animal(id):
     # If the animal was found, use pop(int) to remove it from list
     if animal_index >= 0:
         ANIMALS.pop(animal_index)  
+
+def get_animals_by_location(location_id):
+
+    with sqlite3.connect("./kennel.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        # Write the SQL query to get the information you want
+        db_cursor.execute("""
+        select
+            a.id,
+            a.name,
+            a.status,
+            a.breed,
+            a.customer_id,
+            a.location_id
+        from Animal a
+        WHERE a.location_id = ?
+        """, ( location_id, ))
+
+        animals = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            animal = Animal(row['id'], row['name'], row['status'], row['breed'] , row['customer_id'], row['location_id'])
+            animals.append(animal.__dict__)
+
+    return json.dumps(animals)
+
+
+def get_animals_by_status(status):
+
+    with sqlite3.connect("./kennel.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        # Write the SQL query to get the information you want
+        db_cursor.execute("""
+        select
+            a.id,
+            a.name,
+            a.status,
+            a.breed,
+            a.customer_id,
+            a.location_id
+        from Animal a
+        WHERE a.status = ?
+        """, ( status, ))
+
+        animals = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            animal = Animal(row['id'], row['name'], row['status'], row['breed'] , row['customer_id'], row['location_id'])
+            animals.append(animal.__dict__)
+
+    return json.dumps(animals)

@@ -73,4 +73,4 @@ SELECT
     l.name,
     l.address
 FROM location l
-WHERE l.id = 1
+WHERE l.id = 2
