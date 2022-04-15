@@ -25,7 +25,9 @@ def get_all_employees():
         db_cursor.execute("""
         SELECT
             e.id,
-            e.name
+            e.name,
+            e.address,
+            e.location_id
         FROM employee e
         """)
 
@@ -59,8 +61,10 @@ def get_single_employee(id):
         # into the SQL statement.
         db_cursor.execute("""
         SELECT
-            a.id,
-            a.name
+            e.id,
+            e.name,
+            e.address,
+            e.location_id
         FROM employee e
         WHERE e.id = ?
         """, ( id, ))

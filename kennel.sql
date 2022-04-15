@@ -74,3 +74,5 @@ SELECT
     l.address
 FROM location l
 WHERE l.id = 2
+
+INSERT INTO `Animal` VALUES (null, "Daps", "Kennel", "Boxer", 2, 2);

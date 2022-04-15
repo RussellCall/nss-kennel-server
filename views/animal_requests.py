@@ -2,7 +2,6 @@ import sqlite3
 import json
 from models import Animal
 
-
 ANIMALS = [
     {
         "id": 1,
@@ -145,14 +144,14 @@ def get_animals_by_location(location_id):
 
         # Write the SQL query to get the information you want
         db_cursor.execute("""
-        select
+        SELECT
             a.id,
             a.name,
             a.status,
             a.breed,
             a.customer_id,
             a.location_id
-        from Animal a
+        FROM Animal a
         WHERE a.location_id = ?
         """, ( location_id, ))
 
