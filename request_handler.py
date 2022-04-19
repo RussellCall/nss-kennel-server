@@ -3,8 +3,9 @@ import json
 from views import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal, get_animals_by_location
 from views.animal_requests import get_animals_by_status
 from views import create_customer, get_all_customers, get_single_customer, update_customer, get_customers_by_email
-from views import create_employee, get_all_employees, get_single_employee, update_employee, get_employees_by_location
+from views import get_all_employees, get_single_employee, update_employee, get_employees_by_location
 from views import get_all_locations, get_single_location, create_location, update_location
+from views.employee_requests import create_employee
 
 
 # Here's a class. It inherits from another class.
@@ -77,7 +78,6 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_employee(id)}"
                 else:
                     response = f"{get_all_employees()}"
-                    
 
         # Response from parse_url() is a tuple with 3
         # items in it, which means the request was for
@@ -145,24 +145,24 @@ class HandleRequests(BaseHTTPRequestHandler):
     # It handles any PUT request.
 
     def do_PUT(self):
-        self._set_headers(204)
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
+
         # Parse the URL
         (resource, id) = self.parse_url(self.path)
 
-        # Delete a single animal from the list
-        if resource == "animals":
-            update_animal(id, post_body)
-        if resource == "locations":
-            update_location(id, post_body)
-        if resource == "employees":
-            update_employee(id, post_body)
-        if resource == "customers":
-            update_customer(id, post_body)
+        success = False
 
-        # Encode the new animal and send in response
+        if resource == "animals":
+            success = update_animal(id, post_body)
+        # rest of the elif's
+
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
+
         self.wfile.write("".encode())
 
     def parse_url(self, path):

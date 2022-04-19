@@ -37,7 +37,11 @@ def get_all_customers():
             # Note that the database fields are specified in
             # exact order of the parameters defined in the
             # Customer class above.
-            customer = Customer(row['id'], row['name'], row['address'], row['email'], row['password'])
+            customer = Customer(row['id'],
+                                row['name'],
+                                row['address'],
+                                row['email'],
+                                row['password'])
             customers.append(customer.__dict__)
     # Use `json` package to properly serialize list as JSON
     return json.dumps(customers)
@@ -64,7 +68,11 @@ def get_customers_by_email(email):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            customer = Customer(row['id'], row['name'], row['address'], row['email'] , row['password'])
+            customer = Customer(row['id'],
+                                row['name'],
+                                row['address'],
+                                row['email'] ,
+                                row['password'])
             customers.append(customer.__dict__)
 
     return json.dumps(customers)
@@ -92,7 +100,11 @@ def get_single_customer(id):
         data = db_cursor.fetchone()
 
         # Create an animal instance from the current row
-        customer = Customer(data['id'], data['name'], data['address'], data['email'], data['password'])
+        customer = Customer(data['id'],
+                            data['name'],
+                            data['address'],
+                            data['email'],
+                            data['password'])
 
         return json.dumps(customer.__dict__)
 
